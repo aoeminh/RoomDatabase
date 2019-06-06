@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var noteViewModle: NoteViewModle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+//        setContentView(R.layout.activity_main)
 
 
         val binding: ActivityMainBinding = setContentView(this, R.layout.activity_main)
@@ -39,10 +39,10 @@ class MainActivity : AppCompatActivity() {
             this.layoutManager = LinearLayoutManager(context)
             val dividerItemDecoration = DividerItemDecoration(this.context,LinearLayoutManager.VERTICAL)
             this.addItemDecoration(dividerItemDecoration)
-            this.adapter = adapterNote
+//            this.adapter = adapterNote
 
         }
-
+        binding.setNoteAdapter(adapterNote)
         noteViewModle = ViewModelProviders.of(this).get(NoteViewModle::class.java)
         val observer = Observer<Note>{
 
@@ -56,34 +56,36 @@ class MainActivity : AppCompatActivity() {
 
         noteViewModle.noteViewModle.observe(this,observer)
 
-        float_add.setOnClickListener {
-            val layoutInflater = this.layoutInflater
-            val view = layoutInflater.inflate(R.layout.popup_add_note,null)
-            var alertDiaBuilder = AlertDialog.Builder(this)
-            alertDiaBuilder.setTitle("New note")
-            alertDiaBuilder.setCancelable(true)
-            alertDiaBuilder.setView(view)
-            alertDiaBuilder.setPositiveButton("Add"){
-                dialog, which ->
-
-                val note = Note(null,view.edt_title.text.toString(), view.edt_content.text.toString())
-                noteViewModle.noteViewModle.value = note
-
-            }
-            alertDiaBuilder.setNegativeButton("Cancel"){
-                dialog, which ->
-                dialog.dismiss()
-            }
-
-            val alertDialog = alertDiaBuilder.create()
-            alertDialog.show()
-        }
+//        float_add.setOnClickListener {
+//            val layoutInflater = this.layoutInflater
+//            val view = layoutInflater.inflate(R.layout.popup_add_note,null)
+//            var alertDiaBuilder = AlertDialog.Builder(this)
+//            alertDiaBuilder.setTitle("New note")
+//            alertDiaBuilder.setCancelable(true)
+//            alertDiaBuilder.setView(view)
+//            alertDiaBuilder.setPositiveButton("Add"){
+//                dialog, which ->
+//
+//                val note = Note(null,view.edt_title.text.toString(), view.edt_content.text.toString())
+//                noteViewModle.noteViewModle.value = note
+//
+//            }
+//            alertDiaBuilder.setNegativeButton("Cancel"){
+//                dialog, which ->
+//                dialog.dismiss()
+//            }
+//
+//            val alertDialog = alertDiaBuilder.create()
+//            alertDialog.show()
+//        }
     }
 
     fun getAllNote(noteDatabase : NoteDatabase) : MutableList<Note>{
         var listNote = noteDatabase.noteDao().getAll()
         return listNote
     }
+
+
 
 
 

@@ -2,6 +2,14 @@
 
 <layout>
 
+    <data>
+        <variable
+                name="noteAdapter"
+                type="minhnq.gvn.com.roomdatabase.NoteAdapter"/>
+        <variable
+                name="addListener"
+                type="minhnq.gvn.com.roomdatabase.Handlers"/>
+    </data>
         <android.support.constraint.ConstraintLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
@@ -18,6 +26,7 @@
                     android:src="@android:drawable/ic_input_add"
                     android:layout_margin="16dp"
                     android:layout_marginBottom="8dp"
+                    android:onClick="@{() -> addListener.}"
                     android:backgroundTint="@color/colorPrimary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginEnd="8dp"
@@ -30,6 +39,7 @@
                     android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginTop="8dp"
+                    android:adapter="@{noteAdapter}"
                     app:layout_constraintTop_toTopOf="parent"/>
         </android.support.constraint.ConstraintLayout>
 
