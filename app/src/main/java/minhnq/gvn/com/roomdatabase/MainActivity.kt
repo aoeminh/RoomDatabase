@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.popup_add_note.view.*
 import minhnq.gvn.com.roomdatabase.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    
+
     var adapterNote : NoteAdapter? = null
     lateinit var  edtTitle: EditText
     lateinit var  edtContent: EditText
@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         val binding: ActivityMainBinding = setContentView(this, R.layout.activity_main)
 
@@ -83,4 +84,8 @@ class MainActivity : AppCompatActivity() {
         var listNote = noteDatabase.noteDao().getAll()
         return listNote
     }
+
+
+
+
 }

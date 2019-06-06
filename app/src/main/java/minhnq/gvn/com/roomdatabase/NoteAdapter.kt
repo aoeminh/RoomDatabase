@@ -2,6 +2,8 @@ package minhnq.gvn.com.roomdatabase
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +14,11 @@ import java.util.*
 
 class NoteAdapter(var context: Context?, var mutableList: MutableList<Note>?) :
     RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
+    override fun onCreateViewHolder(p0: ViewGroup, viewType: Int): ViewHolder {
+        val inflater = LayoutInflater.from(context)
+        val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, R.layout.item_rv_note,p0,false)
         val view = LayoutInflater.from(context).inflate(R.layout.item_rv_note,p0,false)
-        return ViewHolder(view)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -22,15 +26,23 @@ class NoteAdapter(var context: Context?, var mutableList: MutableList<Note>?) :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.setContent(mutableList?.get(position))
+//        viewHolder.setContent(mutableList?.get(position))
+        viewHolder.bind(mutableList!!.get(position))
     }
 
-    inner class ViewHolder( itemView: View): RecyclerView.ViewHolder(itemView) {
+
+    inner class ViewHolder(val binding: ViewDataBinding): RecyclerView.ViewHolder(binding.root) {
+
         fun setContent(note: Note?){
             itemView.tv_title_item_note.text = note?.title
             itemView.tv_content_item_note.text = note?.content
             itemView.tv_date.text = getDateTime()
 
+        }
+
+        fun bind(item: Note){
+            binding.setVariable(BR.item,item)
+            binding.executePendingBindings()
         }
 
     }
